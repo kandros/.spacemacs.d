@@ -39,6 +39,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; my layers
+     flow
      helm
      ;; auto-completion
      ;; better-defaults
