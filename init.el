@@ -44,7 +44,8 @@
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips t)
      ;; version-control
      ;; aaronjenses's layers
      aj-javascript
