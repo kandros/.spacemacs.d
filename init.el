@@ -39,17 +39,12 @@
      ;; better-defaults
      emacs-lisp
      git
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
      ;; spell-checking
      (syntax-checking :variables
                       syntax-checking-enable-tooltips t)
-     ;; version-control
      ;; aaronjenses's layers
-     aj-javascript
-     aj-elixir
+     ;; aj-javascript
+     ;; aj-elixir
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
