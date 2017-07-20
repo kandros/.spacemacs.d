@@ -43,7 +43,7 @@
      (syntax-checking :variables
                       syntax-checking-enable-tooltips t)
      ;; aaronjenses's layers
-     ;; aj-javascript
+     aj-javascript
      ;; aj-elixir
      )
    ;; List of additional packages that will be installed without being
@@ -312,6 +312,13 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (evil-global-set-key 'normal (kbd "C-e") 'mwim-end-of-code)
+  (evil-global-set-key 'visual (kbd "C-e") 'mwim-end-of-code)
+  (evil-global-set-key 'insert (kbd "C-d") nil) ; disable C-d so that rjsx close tad works as intended
+
+  (define-key evil-motion-state-map (kbd "C-h") #'evil-window-left)
+  (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
+  (define-key evil-motion-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
