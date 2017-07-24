@@ -330,6 +330,7 @@ you should place your code here."
   (evil-global-set-key 'visual (kbd "s-k")
                        (concat ":move '<-2" (kbd "RET") "gv=gv"))
 
+  ; set default folder for emacs backup files
   (setq backup-directory-alist `(("." . "~/.emacs-backup-files")))
 
   )
