@@ -316,9 +316,19 @@ you should place your code here."
   (evil-global-set-key 'insert (kbd "C-d") nil) ; disable C-d so that rjsx close tad works as intended
 
   (define-key evil-motion-state-map (kbd "C-h") #'evil-window-left)
-  (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
   (define-key evil-motion-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
   (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
+  (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
+  (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
+
+  (evil-global-set-key 'visual (kbd "s-j")
+    (concat ":move '>+1" (kbd "RET") "gv=gv"))
+
+  (evil-global-set-key 'visual (kbd "s-k")
+                       (concat ":move '<-2" (kbd "RET") "gv=gv"))
+
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
