@@ -322,12 +322,15 @@ you should place your code here."
   (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
   (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
 
+  ;; move selection down
   (evil-global-set-key 'visual (kbd "s-j")
     (concat ":move '>+1" (kbd "RET") "gv=gv"))
 
+  ;; move selection up
   (evil-global-set-key 'visual (kbd "s-k")
                        (concat ":move '<-2" (kbd "RET") "gv=gv"))
 
+  (setq backup-directory-alist `(("." . "~/.emacs-backup-files")))
 
   )
 
