@@ -36,7 +36,7 @@
      ;;flow
      helm
      auto-completion
-     ;; better-defaults
+     better-defaults
      emacs-lisp
      git
      ;; spell-checking
