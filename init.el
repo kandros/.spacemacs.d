@@ -333,6 +333,8 @@ you should place your code here."
   ; set default folder for emacs backup files
   (setq backup-directory-alist `(("." . "~/.emacs-backup-files")))
 
+  ; enter insert mode when in magit's commit buffer
+  (add-hook 'git-commit-mode-hook 'evil-insert-state)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
