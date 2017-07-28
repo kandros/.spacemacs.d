@@ -347,6 +347,9 @@ you should place your code here."
   (with-eval-after-load 'company
     (company-flx-mode +1)
     )
+
+  ;; put autosaves in cache dir instead of next to original file
+  (setq dotspacemacs-auto-save-file-location "cache")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
