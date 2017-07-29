@@ -380,6 +380,9 @@ or the current buffer directory."
           (if file-name
               (neotree-find file-name))))))
 
+
+  (setq flycheck-display-errors-delay 0.2)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
