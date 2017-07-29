@@ -352,9 +352,6 @@ you should place your code here."
     (company-flx-mode +1)
     )
 
-  ;; put autosaves in cache dir instead of next to original file
-  (setq dotspacemacs-auto-save-file-location "cache")
-
   (setq neo-theme 'icons)
 
 
