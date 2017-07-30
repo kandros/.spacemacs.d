@@ -32,7 +32,9 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; my layers
-     go
+     (go :variables
+         go-tab-width 4
+         gofmt-command "goimports")
      shell
      ;;flow
      helm
