@@ -333,7 +333,7 @@ you should place your code here."
   (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
   (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
 
-  (evil-global-set-key 'normal (kbd "C-e") 'evil-jump-item)
+  (evil-global-set-key 'normal (kbd "C-m") 'evil-jump-item)
 
   ;; move selection down
   (evil-global-set-key 'visual (kbd "s-j")
