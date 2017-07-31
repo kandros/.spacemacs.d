@@ -61,6 +61,7 @@
      all-the-icons
      emojify
      mocha
+     easy-hugo
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -407,7 +408,13 @@ IF TESTNAME is specified run jest with a pattern for just that test."
               path)))
 
   (advice-add 'mocha-generate-command :override 'mocha-generate-command--jest-command)
+  ; blog
+  (setq easy-hugo-basedir "~/coding/blog/")
+
+  ;; (setq easy-hugo-url "https://yourblogdomain")
+
   (setq confirm-kill-emacs 'y-or-n-p)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
