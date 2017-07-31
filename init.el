@@ -399,6 +399,24 @@ or the current buffer directory."
 
   (setq flycheck-display-errors-delay 0.2)
 
+  ;; Clear up stray ansi escape sequences.
+  (defvar jj*--mocha-ansi-escape-sequences
+    ;; https://emacs.stackexchange.com/questions/18457/stripping-stray-ansi-escape-sequences-from-eshell
+    (rx (or
+         "^[\\[[0-9]+[a-z]"
+         "[1A"
+         "[999D")))
+
+  (defun jj*--mocha-compilation-filter ()
+    "Filter function for compilation output."
+    (ansi-color-apply-on-region compilation-filter-start (point-max))
+    (save-excursion
+      (goto-char compilation-filter-start)
+      (while (re-search-forward jj*--mocha-ansi-escape-sequences nil t)
+        (replace-match ""))))
+
+  (advice-add 'mocha-compilation-filter :override 'jj*--mocha-compilation-filter)
+
   (defcustom mocha-jest-command "node_modules/jest/bin/jest.js --colors"
     "The path to the jest command to run."
     :type 'string
@@ -421,6 +439,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
               path)))
 
   (advice-add 'mocha-generate-command :override 'mocha-generate-command--jest-command)
+
+
   ; blog
   (setq easy-hugo-basedir "~/coding/blog/")
 
@@ -438,11 +458,11 @@ IF TESTNAME is specified run jest with a pattern for just that test."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-flx-limit 100)
- '(company-idle-delay 0)
+ '(company-idle-delay 0 t)
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (mocha go-guru go-eldoc company-go go-mode all-the-icons memoize font-lock+ dockerfile-mode docker tablist docker-tramp company-flx company-tern dash-functional tern helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-flow auto-yasnippet ac-ispell auto-complete flycheck-pos-tip pos-tip flycheck-flow ob-elixir flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flycheck erlang alchemist company elixir-mode spinner adaptive-wrap web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-beautify rjsx-mode prettier-js livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc eslintd-fix coffee-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl easy-hugo toml-mode racer flycheck-rust seq cargo rust-mode mocha go-guru go-eldoc company-go go-mode all-the-icons memoize font-lock+ dockerfile-mode docker tablist docker-tramp company-flx company-tern dash-functional tern helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-flow auto-yasnippet ac-ispell auto-complete flycheck-pos-tip pos-tip flycheck-flow ob-elixir flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flycheck erlang alchemist company elixir-mode spinner adaptive-wrap web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-beautify rjsx-mode prettier-js livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc eslintd-fix coffee-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(standard-indent 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
