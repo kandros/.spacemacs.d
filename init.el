@@ -39,7 +39,6 @@
      shell
      ;;flow
      helm
-     auto-completion
      (auto-completion :variable
                       auto-completion-tab-key-behavior 'complete
                       )
