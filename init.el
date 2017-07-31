@@ -399,6 +399,15 @@ or the current buffer directory."
 
   (setq flycheck-display-errors-delay 0.2)
 
+  (use-package mocha
+  :ensure t
+  :commands (mocha-test-project
+             mocha-debug-project
+             mocha-test-file
+             mocha-debug-file
+             mocha-test-at-point
+             mocha-debug-at-point)
+  :config
   ;; Clear up stray ansi escape sequences.
   (defvar jj*--mocha-ansi-escape-sequences
     ;; https://emacs.stackexchange.com/questions/18457/stripping-stray-ansi-escape-sequences-from-eshell
@@ -417,6 +426,7 @@ or the current buffer directory."
 
   (advice-add 'mocha-compilation-filter :override 'jj*--mocha-compilation-filter)
 
+  ;; https://github.com/scottaj/mocha.el/issues/3
   (defcustom mocha-jest-command "node_modules/jest/bin/jest.js --colors"
     "The path to the jest command to run."
     :type 'string
@@ -430,16 +440,20 @@ MOCHA-PROJECT-TEST-DIRECTORY.
 IF TESTNAME is specified run jest with a pattern for just that test."
     (let ((target (if testname (concat " --testNamePattern \"" testname "\"") ""))
           (path (if (or filename mocha-project-test-directory)
-                    (concat " --testPathPattern \"" (if filename filename mocha-project-test-directory) "\"")
+                    (concat " --testPathPattern \""
+                            (if filename filename mocha-project-test-directory)
+                            "\"")
                   ""))
-          (node-command (concat mocha-which-node (if debug (concat " --debug=" mocha-debug-port) ""))))
+          (node-command
+           (concat mocha-which-node
+                   (if debug (concat " --debug=" mocha-debug-port) ""))))
       (concat node-command " "
               mocha-jest-command
               target
               path)))
 
-  (advice-add 'mocha-generate-command :override 'mocha-generate-command--jest-command)
-
+  (advice-add 'mocha-generate-command
+              :override 'mocha-generate-command--jest-command))
 
   ; blog
   (setq easy-hugo-basedir "~/coding/blog/")
