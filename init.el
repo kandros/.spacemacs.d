@@ -60,11 +60,11 @@
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     company-flx
      all-the-icons
+     company-flx
+     easy-hugo
      emojify
      mocha
-     easy-hugo
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
