@@ -405,6 +405,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
               path)))
 
   (advice-add 'mocha-generate-command :override 'mocha-generate-command--jest-command)
+  (setq confirm-kill-emacs 'y-or-n-p)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
