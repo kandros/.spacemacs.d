@@ -336,6 +336,7 @@ you should place your code here."
 
   (evil-global-set-key 'normal (kbd "C-m") 'evil-jump-item)
 
+  (evil-global-set-key 'insert (kbd "TAB") 'yas-expand)
   ;; move selection down
   (evil-global-set-key 'visual (kbd "s-j")
     (concat ":move '>+1" (kbd "RET") "gv=gv"))
