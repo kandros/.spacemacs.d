@@ -24,6 +24,7 @@
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
      markdown
      html
      ;; ----------------------------------------------------------------
