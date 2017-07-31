@@ -43,6 +43,7 @@
      emacs-lisp
      docker
      git
+     osx
      ;; spell-checking
      (syntax-checking :variables
                       syntax-checking-enable-tooltips t)
