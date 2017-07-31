@@ -338,10 +338,20 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
   (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
   (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
+  (evil-global-set-key 'normal (kbd "s-d") 'evil-mc-make-and-goto-next-match)
+  (evil-global-set-key 'visual (kbd "s-d") 'evil-mc-make-and-goto-next-match)
 
   (evil-global-set-key 'normal (kbd "C-m") 'evil-jump-item)
 
   (evil-global-set-key 'insert (kbd "TAB") 'yas-expand)
+
+  (global-evil-mc-mode  1)
+
+  ;; Enable evil-mc for only prog and text, so it doesn't screw w/ magit and such
+  (with-eval-after-load 'evil-mc
+    (add-hook 'prog-mode-hook 'turn-on-evil-mc-mode)
+    (add-hook 'text-mode-hook 'turn-on-evil-mc-mode))
+
   ;; move selection down
   (evil-global-set-key 'visual (kbd "s-j")
     (concat ":move '>+1" (kbd "RET") "gv=gv"))
