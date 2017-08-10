@@ -1,0 +1,22 @@
+#+TITLE: shift-number layer
+
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer adds increment and decrement number keybindings.
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =shift-number= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+
+* Key bindings
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~C-a~         | Increment number near point |
+| ~C-S-a~       | Decrement number near point |

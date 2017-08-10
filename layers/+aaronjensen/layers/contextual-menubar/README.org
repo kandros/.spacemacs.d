@@ -1,0 +1,16 @@
+#+TITLE: contextual-menubar layer
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+Displays the menubar if on a graphical display, but hides it if in a terminal.
+
+http://emacs.stackexchange.com/questions/29441/how-do-i-disable-menu-bar-mode-only-for-tty-frames
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =contextual-menubar= to the existing =dotspacemacs-configuration-layers= list in this
+file.
+

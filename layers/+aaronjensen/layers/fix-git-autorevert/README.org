@@ -1,0 +1,20 @@
+#+TITLE: fix-git-autorevert layer
+
+
+* Table of Contents                                        :TOC_4_gh:noexport:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+The builtin autorevert functionality acquires git locks which can interfere with
+things like git rebase that are done outside of emacs.
+
+Original bug report: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=21559#74
+One fix:
+https://github.com/bgamari/emacs/commit/64c97e7d123e7796a204c640de8ad5e03c9c9cc0
+Fix used by this layer: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=21559#74
+
+* Install
+To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+add =flow= to the existing =dotspacemacs-configuration-layers= list in this
+file.

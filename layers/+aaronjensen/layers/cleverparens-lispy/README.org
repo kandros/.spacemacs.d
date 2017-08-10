@@ -1,0 +1,5 @@
+#+TITLE: cleverparens/lispy layer
+
+Uses https://github.com/luxbock/evil-cleverparens and
+https://github.com/abo-abo/lispy via
+https://github.com/abo-abo/lispy/pull/174
