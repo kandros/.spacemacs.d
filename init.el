@@ -67,6 +67,7 @@
      company-flx
      easy-hugo
      emojify
+     exec-path-from-shell
      mocha
      nodejs-repl
      npm-mode
@@ -320,7 +321,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
   ;; add executables in node_modules/.bin to path so that flow, eslint and other executables are found by plugins
-  (setq node-add-modules-path t)
+  ;; (setq node-add-modules-path t)
 
   ;; Fix powerline separator colors on mac
   (setq powerline-image-apple-rgb t)
@@ -481,6 +482,18 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (setq css-indent-offset 2)
 
+;; (when (memq window-system '(mac ns x))
+;;   (exec-path-from-shell-initialize))
+
+;; (defun codefalling//reset-eslint-rc ()
+;;   (let ((rc-path (if (projectile-project-p)
+;;                      (concat (projectile-project-root) ".eslintrc"))))
+;;     (if (file-exists-p rc-path)
+;;         (progn
+;;           (message rc-path)
+;;           (setq flycheck-eslintrc rc-path)))))
+
+;; (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
