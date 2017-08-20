@@ -4,7 +4,7 @@
     company-flow
     eslintd-fix
     flycheck
-    prettier-js
+    ;; prettier-js
     rjsx-mode))
 
 
@@ -42,11 +42,9 @@
   (with-eval-after-load 'rjsx-mode
     (add-hook 'rjsx-mode-hook #'add-node-modules-path)))
 
-(defun aj-javascript/post-init-company-flow ()
-  (spacemacs|add-company-backends
-    :backends
-    '((company-flow :with company-dabbrev-code)
-      company-files)))
+;; (defun aj-javascript/post-init-company-flow ()
+;;   (eval-after-load 'company
+;;     (add-to-list 'company-backends 'company-flow)))
 
 (defun aj-javascript/post-init-flycheck ()
   (with-eval-after-load 'flycheck
@@ -55,14 +53,14 @@
 
   (spacemacs/enable-flycheck 'rjsx-mode))
 
-(defun aj-javascript/init-prettier-js ()
-  (use-package prettier-js
-    :defer t
-    :init
-    (progn
-      (add-hook 'rjsx-mode-hook 'prettier-js-mode)
-      (setq prettier-js-args '(
-                               "--trailing-comma" "es5"
-                               "--bracket-spacing" "false"
-                               "--no-semi"
-                               "--single-quote")))))
+;; (defun aj-javascript/init-prettier-js ()
+;;   (use-package prettier-js
+;;     :defer t
+;;     :init
+;;     (progn
+;;       (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+;;       (setq prettier-js-args '(
+;;                                "--trailing-comma" "es5"
+;;                                "--bracket-spacing" "false"
+;;                                "--no-semi"
+;;                                "--single-quote")))))
