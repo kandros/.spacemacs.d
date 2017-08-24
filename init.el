@@ -330,6 +330,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Fix powerline separator colors on mac
   (setq powerline-image-apple-rgb t)
 
+  (toggle-frame-maximized)
   )
 
 (defun dotspacemacs/user-config ()
