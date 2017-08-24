@@ -501,7 +501,11 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (add-hook 'prog-mode-hook 'flycheck-mode)
 
 (spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
-(spacemacs/set-leader-keys "eL" 'spacemacs/toggle-flycheck-error-list)
+(spacemacs/set-leader-keys "el" 'spacemacs/toggle-flycheck-error-list)
+
+(global-set-key (kbd "s-/") 'comment-line)
+(global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
