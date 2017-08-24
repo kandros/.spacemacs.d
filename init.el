@@ -38,13 +38,13 @@
          go-tab-width 4
          gofmt-command "goimports")
      shell
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil
-                     enable-flyspell-auto-completion t
-                     )
+     ;; (spell-checking :variables
+     ;;                 spell-checking-enable-by-default nil
+     ;;                 enable-flyspell-auto-completion t
+     ;;                 )
      flow
      helm
-     (auto-completion :variable
+     (auto-completion :variables
                       auto-completion-tab-key-behavior 'complete
                       )
      better-defaults
