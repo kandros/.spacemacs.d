@@ -42,16 +42,17 @@
   (with-eval-after-load 'rjsx-mode
     (add-hook 'rjsx-mode-hook #'add-node-modules-path)))
 
-(defun aj-javascript/post-init-company-flow ()
-  (eval-after-load 'company
-    (add-to-list 'company-backends 'company-flow)))
+;; (defun aj-javascript/post-init-company-flow ()
+;;   (eval-after-load 'company
+;;     (add-to-list 'company-backends 'company-flow)))
 
 (defun aj-javascript/post-init-flycheck ()
   (with-eval-after-load 'flycheck
     (push 'javascript-jshint flycheck-disabled-checkers)
     (push 'json-jsonlint flycheck-disabled-checkers))
 
-  (spacemacs/enable-flycheck 'rjsx-mode))
+  ;; (spacemacs/enable-flycheck 'rjsx-mode)
+  )
 
 ;; (defun aj-javascript/init-prettier-js ()
 ;;   (use-package prettier-js
