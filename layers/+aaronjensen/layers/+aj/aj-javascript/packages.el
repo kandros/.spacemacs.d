@@ -42,9 +42,9 @@
   (with-eval-after-load 'rjsx-mode
     (add-hook 'rjsx-mode-hook #'add-node-modules-path)))
 
-;; (defun aj-javascript/post-init-company-flow ()
-;;   (eval-after-load 'company
-;;     (add-to-list 'company-backends 'company-flow)))
+(defun aj-javascript/post-init-company-flow ()
+  (eval-after-load 'company
+    (add-to-list 'company-backends 'company-flow)))
 
 (defun aj-javascript/post-init-flycheck ()
   (with-eval-after-load 'flycheck
