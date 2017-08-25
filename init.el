@@ -509,6 +509,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
+(global-set-key (kbd "s-p") 'helm-projectile-find-file)
+(global-set-key (kbd "s-1") 'neotree-toggle)
+(global-set-key (kbd "s-3") 'spacemacs/default-pop-shell)
 
   )
 
