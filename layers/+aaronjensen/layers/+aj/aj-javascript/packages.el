@@ -1,7 +1,7 @@
 (defconst aj-javascript-packages
   '(
     add-node-modules-path
-    company-flow
+    ;; company-flow
     eslintd-fix
     flycheck
     ;; prettier-js
