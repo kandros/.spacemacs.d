@@ -501,6 +501,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 ;; (add-hook 'flycheck-mode-hook 'codefalling//reset-eslint-rc)
 
 (add-hook 'prog-mode-hook 'flycheck-mode)
+(with-eval-after-load 'flycheck
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc emacs-lisp)))
 
 (spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
 (spacemacs/set-leader-keys "el" 'spacemacs/toggle-flycheck-error-list)
