@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: svg
+# key: svg
+# --
+import React from 'react'
+import PropTypes from 'prop-types'
+
+export default function Svg({
+data,
+width,
+height,
+margin = {
+top: 30,
+bottom: 30,
+left: 30,
+right: 30,
+},
+}) {
+return (
+<svg
+width={width + margin.left + margin.right}
+height={height + margin.top + margin.bottom}
+
+>
+
+</svg>
+)
+}
+
+Svg.propTypes = {
+  data: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+}
