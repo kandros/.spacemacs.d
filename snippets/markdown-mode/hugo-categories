@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: categories
+# key: c
+# --
+categories: [$0]
