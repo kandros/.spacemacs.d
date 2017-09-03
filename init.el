@@ -511,6 +511,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
 (spacemacs/set-leader-keys "eL" 'spacemacs/toggle-flycheck-error-list)
 
+(spacemacs/set-leader-keys "=" 'split-window-right-and-focus)
+(spacemacs/set-leader-keys "-" 'split-window-below-and-focus)
+
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
 (global-set-key (kbd "s-p") 'helm-projectile-find-file)
