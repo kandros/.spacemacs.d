@@ -43,7 +43,7 @@
      ;;                 spell-checking-enable-by-default nil
      ;;                 enable-flyspell-auto-completion t
      ;;                 )
-     flow
+     ;; flow
      helm
      (auto-completion :variables
                       auto-completion-tab-key-behavior 'complete
