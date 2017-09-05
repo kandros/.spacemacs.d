@@ -527,9 +527,21 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
 
+(add-hook 'rjsx-mode-hook (lambda()
+    (global-set-key (kbd "C-c C-l") 'console-log-at-point)
+                          ))
+
 (load "~/go/src/github.com/stapelberg/expanderr/expanderr.el")
 (add-hook 'go-mode-hook (lambda ()
                           (global-set-key (kbd "C-c C-e") #'go-expanderr)))
+
+;; (setq neo-autorefresh t) ; enable autorefresh of neotree
+
+(setq yas-snippet-dirs '("~/.spacemacs.d/snippets"))
+
+(use-package pomodoro
+  :config
+  (pomodoro-add-to-mode-line))
 
   )
 
