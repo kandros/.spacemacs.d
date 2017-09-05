@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: svg-rect
+# key: rect
+# --
+<rect width="300" height="100" fill="red" />
