@@ -11,7 +11,7 @@
 ;; (setq selection (buffer-substring (mark) (point)))
 
 (defun console-log-at-point()
-  "console.log symbol at point on new line"
+  "console.log word at point on new line"
 
   (interactive)
   (setq selection (thing-at-point 'word))
