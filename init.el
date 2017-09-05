@@ -334,6 +334,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; Fix powerline separator colors on mac
   (setq powerline-image-apple-rgb t)
 
+  (add-to-list 'load-path (expand-file-name "lisp" dotspacemacs-directory))
+  (require 'functions)
+
   (toggle-frame-maximized)
   )
 
