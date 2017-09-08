@@ -514,15 +514,17 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
 (spacemacs/set-leader-keys "eL" 'spacemacs/toggle-flycheck-error-list)
 
-(spacemacs/set-leader-keys "=" 'split-window-right-and-focus)
-(spacemacs/set-leader-keys "-" 'split-window-below-and-focus)
-
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
 (global-set-key (kbd "s-p") 'helm-projectile-find-file)
 (global-set-key (kbd "s-1") 'neotree-toggle)
 (global-set-key (kbd "s-3") 'spacemacs/default-pop-shell)
 (global-set-key (kbd "C-c C-j") 'ace-jump-char-mode)
+
+(global-set-key (kbd "s-<up>") 'split-window-below)
+(global-set-key (kbd "s-<right>") 'split-window-right-and-focus)
+(global-set-key (kbd "s-<down>") 'split-window-below-and-focus)
+(global-set-key (kbd "s-<left>") 'split-window-right)
 
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
