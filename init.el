@@ -366,7 +366,7 @@ you should place your code here."
 
   (evil-global-set-key 'normal (kbd "C-i") 'evil-jump-forward)
 
-  (evil-global-set-key 'normal (kbd "C-m") 'evil-jump-item)
+  (evil-global-set-key 'normal (kbd "C-m") 'evilmi-jump-items)
 
   (evil-global-set-key 'insert (kbd "TAB") 'yas-expand)
 
