@@ -20,3 +20,10 @@
   (newline-and-indent)
   (insert (concat "console.log(" selection ")" ))
   )
+
+(defun insert-filename()
+  (interactive)
+  (let (s)
+    (setq s (file-name-sans-extension (buffer-name (current-buffer))))
+    (insert s)
+    ))

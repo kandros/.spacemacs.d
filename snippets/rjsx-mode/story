@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: story
+# key: story
+# --
+import React from 'react'
+import { storiesOf } from '@storybook/react'
+import ${1:`(replace-regexp-in-string ".stories.js" "" (buffer-name (current-buffer)))
+`} from './$1'
+import { getData } from './data'
+
+storiesOf('$1', module)
+.add('default', () => {
+  return (
+    <$1
+      data={getData()}
+      width={800}
+      height={400}
+    />
+  )
+})
