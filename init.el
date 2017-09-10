@@ -525,6 +525,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-<down>") 'split-window-below-and-focus)
 (global-set-key (kbd "s-<left>") 'split-window-right)
 
+(global-set-key (kbd "C-c C-m") 'magit-status)
+
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
 
