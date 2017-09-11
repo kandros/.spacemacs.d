@@ -545,6 +545,15 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (use-package pomodoro
   :config
   (pomodoro-add-to-mode-line))
+(evil-define-operator wrap-with-parens (beg end)
+  (goto-char beg)
+  (insert "\"")
+  (goto-char (1+ end))
+  (insert "\""))
+
+(evil-define-key 'visual global-map
+  (kbd "\"") 'wrap-with-parens)
+
 
   )
 
