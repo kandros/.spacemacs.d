@@ -546,15 +546,51 @@ IF TESTNAME is specified run jest with a pattern for just that test."
   :config
   (pomodoro-add-to-mode-line))
 (evil-define-operator wrap-with-parens (beg end)
+;; I know... i know.. i gotta learn elisp
+(evil-define-operator wrap-with-single-quote (beg end)
+  (goto-char beg)
+  (insert "'")
+  (goto-char (1+ end))
+  (insert "'"))
+
+(evil-define-key 'visual global-map
+  (kbd "'") 'wrap-with-single-quote)
+
+(evil-define-operator wrap-with-double-quote (beg end)
   (goto-char beg)
   (insert "\"")
   (goto-char (1+ end))
   (insert "\""))
 
 (evil-define-key 'visual global-map
-  (kbd "\"") 'wrap-with-parens)
+  (kbd "\"") 'wrap-with-double-quote)
 
+(evil-define-operator wrap-with-square-bracket (beg end)
+  (goto-char beg)
+  (insert "[")
+  (goto-char (1+ end))
+  (insert "]"))
 
+(evil-define-key 'visual global-map
+  (kbd "[") 'wrap-with-square-bracket)
+
+(evil-define-operator wrap-with-parens (beg end)
+  (goto-char beg)
+  (insert "(")
+  (goto-char (1+ end))
+  (insert ")"))
+
+(evil-define-key 'visual global-map
+  (kbd "(") 'wrap-with-parens)
+
+(evil-define-operator wrap-with-curly (beg end)
+  (goto-char beg)
+  (insert "{")
+  (goto-char (1+ end))
+  (insert "}"))
+
+(evil-define-key 'visual global-map
+  (kbd "{") 'wrap-with-curly)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
