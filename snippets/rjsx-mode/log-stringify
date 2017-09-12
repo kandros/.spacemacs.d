@@ -1,5 +1,7 @@
 # -*- mode: snippet -*-
-# name: JSON.stringify
-# key: j
+# name: if
+# key: if
 # --
-console.log(JSON.stringify($0, null, 2))
+if ($1) {
+$0
+}
