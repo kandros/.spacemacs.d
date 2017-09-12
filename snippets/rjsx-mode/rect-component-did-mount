@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: react-component-did-mount
+# key: cdm
+# --
+componentDidMount() {
+  $1
+}

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: styled-jsx
+# key: style
+# --
+      <style jsx>
+        {\`
+          .$1 {
+          }
+        \`}
+      </style>

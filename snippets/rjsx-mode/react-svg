@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: react-svg
+# key: svg
+# --
+import React from 'react'
+import PropTypes from 'prop-types'
+
+export default function ${1:`(capitalize (file-name-sans-extension (buffer-name (current-buffer))))`}({
+data,
+width,
+height,
+margin = {
+top: 120,
+bottom: 120,
+left: 120,
+right: 120,
+},
+}) {
+return (
+<svg
+width={width + margin.left + margin.right}
+height={height + margin.top + margin.bottom}
+
+>
+
+</svg>
+)
+}
+
+$1.propTypes = {
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+}
