@@ -519,6 +519,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-1") 'neotree-toggle)
 (global-set-key (kbd "s-3") 'spacemacs/default-pop-shell)
 (global-set-key (kbd "C-c C-j") 'ace-jump-mode)
+(global-set-key (kbd "C-c C-t") 'emmet-wrap-with-markup)
 
 (global-set-key (kbd "s-<up>") 'split-window-below)
 (global-set-key (kbd "s-<right>") 'split-window-right-and-focus)
@@ -526,6 +527,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-<left>") 'split-window-right)
 
 (global-set-key (kbd "C-c m") 'magit-status)
+(global-set-key (kbd "C-c C-m") 'magit-status)
+(global-set-key (kbd "M-v") 'toggle-camelcase-underscores)
 
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
@@ -542,10 +545,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (setq yas-snippet-dirs '("~/.spacemacs.d/snippets"))
 
-(use-package pomodoro
-  :config
-  (pomodoro-add-to-mode-line))
-(evil-define-operator wrap-with-parens (beg end)
+(setq emmet-expand-jsx-className? t)
+
 ;; I know... i know.. i gotta learn elisp
 (evil-define-operator wrap-with-single-quote (beg end)
   (goto-char beg)
