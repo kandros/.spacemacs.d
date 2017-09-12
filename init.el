@@ -529,6 +529,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c C-m") 'magit-status)
 (global-set-key (kbd "M-v") 'toggle-camelcase-underscores)
+(global-set-key (kbd "s-b") 'spacemacs/jump-to-definition)
 
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
