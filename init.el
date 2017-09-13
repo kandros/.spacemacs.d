@@ -363,6 +363,21 @@ you should place your code here."
   (evil-global-set-key 'normal (kbd "j") 'evil-next-visual-line)
   (evil-global-set-key 'normal (kbd "k") 'evil-previous-visual-line)
 
+
+  ;; (defun evil-jump-backward-recenter()
+  ;;   (interactive)
+  ;;   (evil-jump-forward nil)
+  ;;   (recenter)
+  ;;   )
+  ;; (evil-global-set-key 'normal (kbd "C-o") 'evil-jump-backward-recenter)
+
+  ;; (defun evil-jump-forward-recenter()
+  ;;   (interactive)
+  ;;   (evil-jump-forward nil)
+  ;;   (recenter)
+  ;;   )
+  ;; (evil-global-set-key 'normal (kbd "C-i") 'evil-jump-forward-recenter)
+
   (evil-global-set-key 'normal (kbd "C-i") 'evil-jump-forward)
 
   (evil-global-set-key 'normal (kbd "C-m") 'evilmi-jump-items)
@@ -594,7 +609,6 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (evil-define-key 'visual global-map
   (kbd "{") 'wrap-with-curly)
-  )
 
 
 
