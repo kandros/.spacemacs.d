@@ -556,6 +556,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "M-v") 'toggle-camelcase-underscores)
 (global-set-key (kbd "s-b") 'spacemacs/jump-to-definition)
 (global-set-key (kbd "<s-backspace>") 'kill-whole-line)
+(global-set-key (kbd "s-y") 'helm-show-kill-ring)
 
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
