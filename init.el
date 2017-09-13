@@ -91,7 +91,13 @@
    ;; `used-but-keep-unused' installs only the used packages but won't uninstall
    ;; them if they become unused. `all' installs *all* packages supported by
    ;; Spacemacs and never uninstall them. (default is `used-only')
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-only)
+
+;; Conditionally load a layer example
+  ;; (when (spacemacs/system-is-mac)
+    ;; (add-to-list 'dotspacemacs-configuration-layers 'osx))
+
+  )
 
 (defun dotspacemacs/init ()
   "Initialization function.
