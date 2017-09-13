@@ -24,8 +24,8 @@
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     yaml
-     rust
+     ;; yaml
+     ;; rust
      markdown
      html
      ;; ----------------------------------------------------------------
@@ -50,7 +50,7 @@
                       )
      better-defaults
      emacs-lisp
-     docker
+     ;; docker
      git
      osx
      (syntax-checking :variables
@@ -59,6 +59,7 @@
      aj-javascript
      aj-elixir
      )
+
 ;; TheBB layers
    evil-little-word
 
