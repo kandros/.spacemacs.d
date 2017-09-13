@@ -597,6 +597,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
   )
 
 
+
+  ) ; END user-config
+
 ;; make copy when a region is selected like if should (replace text with system clipobard)
 ;; https://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
 (fset 'evil-visual-update-x-selection 'ignore)
