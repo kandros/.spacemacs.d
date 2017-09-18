@@ -565,6 +565,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (add-hook 'rjsx-mode-hook (lambda()
     (global-set-key (kbd "C-c C-l") 'console-log-at-point)
                           ))
+(global-set-key (kbd "C-c C-p") 'jsx-prop-at-point)
 
 (load "~/go/src/github.com/stapelberg/expanderr/expanderr.el")
 (add-hook 'go-mode-hook (lambda ()

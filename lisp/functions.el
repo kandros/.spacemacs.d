@@ -10,15 +10,48 @@
 ;;   (setq selection (thing-at-point 'symbol))
 ;; (setq selection (buffer-substring (mark) (point)))
 
+;; (defun goto-interesting-symbol()
+;;   (interactive)
+;;   (search-forward "(")
+;;   (search-forward "'")
+;;   )
+
+
+
+;; (defun jaga/narrow-to-line()
+;;   (narrow-to-region (line-beginning-position) (line-end-position))
+;;   )
+
+;; (defun test()
+;;   (interactive)
+;;   (jaga/narrow-to-line)
+;;   ;; (beginning-of-line)
+;;   (if (search-forward ";")
+;;       (message "trovato")
+;;     (message "non trovato")
+;;     )
+;;   (widen)
+;;   )
+
+;; if selection active
+;; (if (use-region-p)
+
+
+;; (cond
+;;  ((eq evil-state 'visual) (do-something))
+;;  ((eq evil-state 'normal) (do-other-thing))
+;;  ((eq evil-state 'insert) (do-another-thing)))
+
+
 (defun console-log-at-point()
   "console.log word at point on new line"
 
   (interactive)
-  (setq selection (thing-at-point 'word))
-  (message selection)
+  (setq jaga/selection (thing-at-point 'word))
+  (message jaga/selection)
   (end-of-line)
   (newline-and-indent)
-  (insert (concat "console.log(" selection ")" ))
+  (insert (concat "console.log(" jaga/selection ")" ))
   )
 
 (defun insert-filename()
@@ -44,3 +77,30 @@
             (downcase-region start (1+ start)))
         (replace-regexp "\\([A-Z]\\)" "_\\1" nil (1+ start) end)
         (downcase-region start (cdr (bounds-of-thing-at-point 'symbol)))))))
+
+(defun backward-copy-word ()
+  (interactive)
+  (save-excursion
+    (copy-region-as-kill (point) (progn (backward-word) (point)))))
+
+
+
+(defun jsx-prop-at-point()
+  (interactive)
+  (cond
+   ((eq evil-state 'normal)
+    (progn
+      (setq jaga/selection (thing-at-point 'word))
+      (forward-word)
+      (insert (concat "={" jaga/selection "}" ))
+      )
+    )
+   ((eq evil-state 'insert)
+    (progn
+      (backward-copy-word)
+      (insert "={")
+      (yank)
+      (insert "}")
+      )
+    )
+    ))
