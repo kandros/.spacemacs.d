@@ -139,7 +139,3 @@
     (yank)
     (insert "}")
     (evil-normal-state))))
-
-a
-b
-c
