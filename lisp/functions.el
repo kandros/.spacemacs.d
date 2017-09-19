@@ -42,22 +42,30 @@
 ;;  ((eq evil-state 'normal) (do-other-thing))
 ;;  ((eq evil-state 'insert) (do-another-thing)))
 
+(defun get-current-selection ()
+  (buffer-substring-no-properties (region-beginning) (region-end))
+  )
+
 (defun backward-copy-word ()
   (interactive)
   (save-excursion
     (copy-region-as-kill (point) (progn (backward-word) (point)))))
 
 
+(defun console-log-in-next-line(str)
+  "console.log str on next line"
+  (end-of-line) ; to prevent breaking a line a
+  (newline-and-indent)
+  (insert (concat "console.log(" str ")" ))
+  )
+
 (defun console-log-at-point()
   "console.log word at point on new line"
-
   (interactive)
-  (setq jaga/selection (thing-at-point 'word))
-  (message jaga/selection)
-  (end-of-line)
-  (newline-and-indent)
-  (insert (concat "console.log(" jaga/selection ")" ))
-  )
+  (if (use-region-p)
+        (console-log-in-next-line (get-current-selection))
+    (console-log-in-next-line (thing-at-point 'word))
+    ))
 
 (defun insert-filename()
   (interactive)
@@ -65,8 +73,8 @@
     (setq s (file-name-sans-extension (buffer-name (current-buffer))))
     (insert s)
     ))
-(defun toggle-camelcase-underscores ()
 
+(defun toggle-camelcase-underscores ()
   "Toggle between camelcase and underscore notation for the symbol at point."
   (interactive)
   (save-excursion
@@ -103,9 +111,9 @@
   (interactive (list (read-from-minibuffer "Page name: " `(,".js" . 1) nil nil nil)))
   (nextjs-create-file pagename))
 
-(defun  jsx-prop-every-selected-line(p1)
+(defun  jsx-prop-every-selected-line()
   (interactive "r")
-  (while (>= (point) p1)
+  (while (>= (point) (region-beginning))
     (back-to-indentation)
     (deactivate-mark)
     (jsx-prop-at-point)
@@ -115,17 +123,15 @@
   (interactive)
   (cond
    ((use-region-p)
-    (let ((p1))
       (save-excursion
-        (setq p1 (region-beginning))
         (goto-char (region-end))
-        (jsx-prop-every-selected-line p1 ))))
+        (jsx-prop-every-selected-line)))
 
    ((eq evil-state 'normal)
-    (setq jaga/selection (thing-at-point 'word))
-    (when jaga/selection
-      (forward-word)
-      (insert (concat "={" jaga/selection "}" ))))
+    (let ((word (thing-at-point 'word)))
+      (when word
+        (forward-word)
+        (insert (concat "={" word "}" )))))
 
    ((eq evil-state 'insert)
     (backward-copy-word)
@@ -133,3 +139,7 @@
     (yank)
     (insert "}")
     (evil-normal-state))))
+
+a
+b
+c
