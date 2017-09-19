@@ -546,6 +546,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "C-c C-j") 'ace-jump-mode)
 (global-set-key (kbd "C-c C-t") 'emmet-wrap-with-markup)
 
+;; (global-set-key (kbd "C-c C-o") 'js2-mode-toggle-element)
+
 (global-set-key (kbd "s-<up>") 'split-window-below)
 (global-set-key (kbd "s-<right>") 'split-window-right-and-focus)
 (global-set-key (kbd "s-<down>") 'split-window-below-and-focus)
