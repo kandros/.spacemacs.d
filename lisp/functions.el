@@ -99,40 +99,40 @@
         (write-region "" nil path) ; crate new file with no contenta at path
         (find-file path)))))
 
-  (defun nextjs-new-page(pagename)
-    "creates a new page in NextJS"
-    (interactive (list (read-from-minibuffer "Page name: " `(,".js" . 1) nil nil nil)))
-    (nextjs-create-file pagename))
+(defun nextjs-new-page(pagename)
+  "creates a new page in NextJS"
+  (interactive (list (read-from-minibuffer "Page name: " `(,".js" . 1) nil nil nil)))
+  (nextjs-create-file pagename))
 
-  (defun  jsx-prop-every-selected-line(p1)
-    (interactive "r")
-    (while (>= (point) p1)
-      (back-to-indentation)
-      (deactivate-mark)
-      (jsx-prop-at-point)
-      (previous-line)))
+(defun  jsx-prop-every-selected-line(p1)
+  (interactive "r")
+  (while (>= (point) p1)
+    (back-to-indentation)
+    (deactivate-mark)
+    (jsx-prop-at-point)
+    (previous-line)))
 
-  (defun jsx-prop-at-point()
-    (interactive)
-    (cond
-     ((use-region-p)
-      (let ((p1))
-        (save-excursion
-          (setq p1 (region-beginning) )
-          (jsx-prop-every-selected-line p1 ))))
+(defun jsx-prop-at-point()
+  (interactive)
+  (cond
+   ((use-region-p)
+    (let ((p1))
+      (save-excursion
+        (setq p1 (region-beginning) )
+        (jsx-prop-every-selected-line p1 ))))
 
-     ((eq evil-state 'normal)
-      (progn
-        (setq jaga/selection (thing-at-point 'word))
-        (when jaga/selection
-          (progn
+   ((eq evil-state 'normal)
+    (progn
+      (setq jaga/selection (thing-at-point 'word))
+      (when jaga/selection
+        (progn
           (forward-word)
           (insert (concat "={" jaga/selection "}" ))))))
 
-     ((eq evil-state 'insert)
-      (progn
-        (backward-copy-word)
-        (insert "={")
-        (yank)
-        (insert "}")
-        (evil-normal-state)))))
+   ((eq evil-state 'insert)
+    (progn
+      (backward-copy-word)
+      (insert "={")
+      (yank)
+      (insert "}")
+      (evil-normal-state)))))
