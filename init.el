@@ -345,8 +345,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq powerline-image-apple-rgb t)
 
   (add-to-list 'load-path (expand-file-name "lisp" dotspacemacs-directory))
+  (require 'utils)
   (require 'functions)
-
+  (require 'react)
+  (require 'nextjs)
   )
 
 (defun dotspacemacs/user-config ()
