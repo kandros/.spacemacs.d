@@ -77,30 +77,3 @@
             (downcase-region start (1+ start)))
         (replace-regexp "\\([A-Z]\\)" "_\\1" nil (1+ start) end)
         (downcase-region start (cdr (bounds-of-thing-at-point 'symbol)))))))
-
-(defun backward-copy-word ()
-  (interactive)
-  (save-excursion
-    (copy-region-as-kill (point) (progn (backward-word) (point)))))
-
-
-
-(defun jsx-prop-at-point()
-  (interactive)
-  (cond
-   ((eq evil-state 'normal)
-    (progn
-      (setq jaga/selection (thing-at-point 'word))
-      (forward-word)
-      (insert (concat "={" jaga/selection "}" ))
-      )
-    )
-   ((eq evil-state 'insert)
-    (progn
-      (backward-copy-word)
-      (insert "={")
-      (yank)
-      (insert "}")
-      )
-    )
-    ))
