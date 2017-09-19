@@ -60,9 +60,9 @@
     :defer t
     :init
     (progn
-      ;; (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+      (add-hook 'rjsx-mode-hook 'prettier-js-mode)
       (setq prettier-js-args '(
                                "--trailing-comma" "es5"
-                               "--bracket-spacing" "false"
+                               "--bracket-spacing" "true"
                                "--no-semi"
                                "--single-quote")))))
