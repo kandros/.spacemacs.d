@@ -340,8 +340,6 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
-  ;; add executables in node_modules/.bin to path so that flow, eslint and other executables are found by plugins
-  ;; (setq node-add-modules-path t)
 
   ;; Fix powerline separator colors on mac
   (setq powerline-image-apple-rgb t)

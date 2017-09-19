@@ -40,6 +40,7 @@
 
 (defun aj-javascript/post-init-add-node-modules-path ()
   (with-eval-after-load 'rjsx-mode
+    ;; add executables in node_modules/.bin to path so that flow, eslint and other executables are found by plugins
     (add-hook 'rjsx-mode-hook #'add-node-modules-path)))
 
 ;; (defun aj-javascript/post-init-company-flow ()
