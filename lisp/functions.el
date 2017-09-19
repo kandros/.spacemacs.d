@@ -118,21 +118,19 @@
    ((use-region-p)
     (let ((p1))
       (save-excursion
-        (setq p1 (region-beginning) )
+        (setq p1 (region-beginning))
+        (goto-char (region-end))
         (jsx-prop-every-selected-line p1 ))))
 
    ((eq evil-state 'normal)
-    (progn
-      (setq jaga/selection (thing-at-point 'word))
-      (when jaga/selection
-        (progn
-          (forward-word)
-          (insert (concat "={" jaga/selection "}" ))))))
+    (setq jaga/selection (thing-at-point 'word))
+    (when jaga/selection
+      (forward-word)
+      (insert (concat "={" jaga/selection "}" ))))
 
    ((eq evil-state 'insert)
-    (progn
-      (backward-copy-word)
-      (insert "={")
-      (yank)
-      (insert "}")
-      (evil-normal-state)))))
+    (backward-copy-word)
+    (insert "={")
+    (yank)
+    (insert "}")
+    (evil-normal-state))))
