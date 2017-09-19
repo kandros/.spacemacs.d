@@ -113,11 +113,12 @@
 
 (defun  jsx-prop-every-selected-line()
   (interactive "r")
-  (while (>= (point) (region-beginning))
+  (let ((x (region-beginning)))
+  (while (>= (point) x)
     (back-to-indentation)
     (deactivate-mark)
     (jsx-prop-at-point)
-    (previous-line)))
+    (previous-line))))
 
 (defun jsx-prop-at-point()
   (interactive)
