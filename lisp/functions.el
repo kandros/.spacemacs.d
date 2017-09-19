@@ -84,7 +84,6 @@
         (downcase-region start (cdr (bounds-of-thing-at-point 'symbol)))))))
 
 (defun nextjs-build-path(filename)
-  filename
   (concat (projectile-project-root) "frontend/pages/" filename))
 
 
