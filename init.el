@@ -77,16 +77,21 @@
      emojify
      evil-multiedit
      exec-path-from-shell
+     tide
      mocha
-     nodejs-repl
      npm-mode
+     nodejs-repj
      restclient
      writeroom-mode
+     eros
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    tern
+                                    company-tern
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -518,7 +523,16 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'turn-on-flyspell)
-(add-hook 'rjsx-mode-hook 'npm-global-mode)
+
+
+;; not working, will get back to this
+;; (use-package npm-mode
+;;   :defer t
+;;   :commands (npm-mode npm-global-mode)
+;;   :init
+;;   (add-hook 'rjsx-mode-hook 'npm-mode)
+;; )
+
 
 (setq css-indent-offset 2)
 
@@ -564,12 +578,14 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-o") 'spacemacs/jump-to-definition)
 (global-set-key (kbd "<s-backspace>") 'kill-whole-line)
 (global-set-key (kbd "s-y") 'helm-show-kill-ring)
+(global-set-key (kbd "s-l") 'select-current-line)
 
 ;; only user lowercase characters
 (setq ace-jump-mode-move-keys (loop for i from ?a to ?z collect i))
 
 (add-hook 'rjsx-mode-hook (lambda()
     (global-set-key (kbd "C-c C-l") 'console-log-at-point)
+    (global-set-key (kbd "s-o") 'tide-jump-to-definition)
                           ))
 (global-set-key (kbd "C-c C-p") 'jsx-prop-at-point)
 
@@ -643,6 +659,30 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (fset 'evil-visual-update-x-selection 'ignore)
 (delete-selection-mode 1)
 
+(use-package eros
+  :defer t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'eros-mode))
+
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'rjsx-mode-hook #'setup-tide-mode)
+(setq company-tooltip-align-annotations t)
+(flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
 
   ) ; END user-config
 
@@ -654,17 +694,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(company-flx-limit 100)
- '(company-idle-delay 0)
- '(evil-want-Y-yank-to-eol nil)
- '(flycheck-javascript-flow-args nil)
- '(magit-commit-arguments (quote ("--verbose")))
  '(package-selected-packages
    (quote
-    (evil-multiedit csv-mode gorepl-mode pomodoro restclient zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme ace-jump-mode multi-line shut-up flycheck-popup-tip visual-fill-column unfill mwim markdown-toc gh-md emojify ht yaml-mode mmm-mode npm-mode markdown-mode flyspell-popup nodejs-repl writeroom-mode flyspell-correct-helm flyspell-correct auto-dictionary gruvbox-theme autothemer minimap reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl easy-hugo toml-mode racer flycheck-rust seq cargo rust-mode mocha go-guru go-eldoc company-go go-mode all-the-icons memoize font-lock+ dockerfile-mode docker tablist docker-tramp company-flx company-tern dash-functional tern helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-flow auto-yasnippet ac-ispell auto-complete flycheck-pos-tip pos-tip flycheck-flow ob-elixir flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flycheck erlang alchemist company elixir-mode spinner adaptive-wrap web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-beautify rjsx-mode prettier-js livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc eslintd-fix coffee-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
- '(standard-indent 2))
+    (eros tide typescript-mode define-word zonokai-theme zenburn-theme zen-and-art-theme xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rjsx-mode reverse-theme reveal-in-osx-finder restclient restart-emacs rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir npm-mode noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mocha mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md gandalf-theme fuzzy flycheck-pos-tip flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-multiedit evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eslintd-fix eshell-z eshell-prompt-extras esh-help erlang emojify emmet-mode elisp-slime-nav easy-hugo dumb-jump dracula-theme django-theme darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web company-tern company-statistics company-go company-flx column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme all-the-icons alect-themes alchemist aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-mode ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
