@@ -371,8 +371,9 @@ you should place your code here."
   (spaceline-toggle-buffer-position-off)
   (spaceline-toggle-hud-off)
 
-  (evil-global-set-key 'normal (kbd "C-e") 'evil-end-of-line)
-  (evil-global-set-key 'visual (kbd "C-e") 'evil-end-of-code)
+
+  (evil-global-set-key 'normal (kbd "C-e") 'mwim-end-of-code-or-line)
+  (evil-global-set-key 'visual (kbd "C-e") 'mwim-end-of-code-or-line)
   (evil-global-set-key 'insert (kbd "C-d") nil) ; disable C-d so that rjsx close tad works as intended
 
   (define-key evil-motion-state-map (kbd "C-h") #'evil-window-left)
