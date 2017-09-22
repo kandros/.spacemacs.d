@@ -51,6 +51,13 @@
   (save-excursion
     (copy-region-as-kill (point) (progn (backward-word) (point)))))
 
+(defun debugger-next-line()
+  "add debugger statement on next line"
+  (interactive)
+  (end-of-line) ; to prevent breaking a line a
+  (newline-and-indent)
+  (insert "debugger")
+  )
 
 (defun console-log-in-next-line(str)
   "console.log str on next line"
