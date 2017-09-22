@@ -153,3 +153,25 @@
   (interactive)
   (end-of-line) ; move to end of line
   (set-mark (line-beginning-position)))
+
+
+(defun dwim-curly()
+  (interactive)
+  (cond
+
+   ((eq evil-state 'normal)
+    (let ((word (thing-at-point 'word)))
+      (when word
+        (backward-word)
+        (insert "{")
+         (forward-word)
+        (insert "}")
+        )
+      ))
+
+   ((eq evil-state 'insert)
+      (backward-word)
+      (insert "{")
+      (forward-word)
+      (insert "}")
+    )))
