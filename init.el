@@ -390,7 +390,7 @@ you should place your code here."
   (evil-global-set-key 'normal (kbd "j") 'evil-next-visual-line)
   (evil-global-set-key 'normal (kbd "k") 'evil-previous-visual-line)
 
-  (evil-global-set-key 'normal (kbd "}") 'dwim-curly)
+  ;; (evil-global-set-key 'normal (kbd "}") 'dwim-curly)
 
 
   ;; (defun evil-jump-backward-recenter()
@@ -573,7 +573,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-3") 'spacemacs/default-pop-shell)
 (global-set-key (kbd "C-c C-j") 'ace-jump-mode)
 (global-set-key (kbd "C-c C-t") 'emmet-wrap-with-markup)
-(global-set-key (kbd "}") 'dwim-curly)
+;; (global-set-key (kbd "}") 'dwim-curly)
 
 ;; (global-set-key (kbd "C-c C-o") 'js2-mode-toggle-element)
 
