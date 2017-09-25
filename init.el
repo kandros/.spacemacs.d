@@ -686,7 +686,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
-  (company-mode +1))
+  (company-mode +1)
+  (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  )
 
 ;; aligns annotation to the right hand side
 
