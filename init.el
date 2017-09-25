@@ -596,7 +596,10 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (add-hook 'rjsx-mode-hook (lambda()
     (global-set-key (kbd "C-c C-l") 'console-log-at-point)
+    (global-set-key (kbd "C-c C-d") 'debugger-next-line)
     (global-set-key (kbd "s-o") 'tide-jump-to-definition)
+    (global-set-key (kbd "C-c C-r") 'tide-rename-symbol)
+    (global-set-key (kbd "C-c C-t") 'rjsx-rename-tag-at-point)
                           ))
 (global-set-key (kbd "C-c C-p") 'jsx-prop-at-point)
 
