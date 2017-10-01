@@ -381,6 +381,9 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "C-k") #'evil-window-up)
   (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
   (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
+
+  (define-key neotree-mode-map (kbd "C-l") #'evil-window-right)
+
   (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
   (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
   (evil-global-set-key 'normal (kbd "s-d") 'evil-mc-make-and-goto-next-match)
