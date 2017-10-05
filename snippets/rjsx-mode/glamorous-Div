@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: glamorous-Div
+# key: Div
+# --
+import { Div } from 'glamorous'
