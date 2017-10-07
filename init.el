@@ -722,6 +722,11 @@ IF TESTNAME is specified run jest with a pattern for just that test."
   (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
   (define-key evil-operator-state-map (kbd "C-g") #'evil-escape))
 
+(eval-after-load 'flycheck
+  (progn
+      (flycheck-pos-tip-mode -1)
+      (flycheck-popup-tip-mode 1)))
+
 (setq magit-diff-refine-hunk t)
 
   ) ; END user-config
