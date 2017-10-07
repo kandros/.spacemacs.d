@@ -70,7 +70,6 @@
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     ace-jump-mode
      all-the-icons
      company-flx
      easy-hugo
@@ -523,6 +522,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
                                           "Disable magit-commit-show-diff."
                                           (setq magit-commit-show-diff nil)))
   (spacemacs/set-leader-keys "gc" #'aj/magit-stage-all-and-commit)
+  (spacemacs/set-leader-keys "jt" #'avy-goto-char-timer)
 
 (use-package evil-mc
   :ensure t
@@ -579,7 +579,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-p") 'helm-projectile-find-file)
 (global-set-key (kbd "s-1") 'neotree-find-project-root)
 (global-set-key (kbd "s-3") 'spacemacs/default-pop-shell)
-(global-set-key (kbd "C-c C-j") 'ace-jump-mode)
+(global-set-key (kbd "C-c C-j") 'avy-goto-char-timer)
 (global-set-key (kbd "C-c C-t") 'emmet-wrap-with-markup)
 (global-set-key (kbd "C-SPC") 'company-complete)
 ;; (global-set-key (kbd "}") 'dwim-curly)
