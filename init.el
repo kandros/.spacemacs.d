@@ -608,7 +608,10 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (load "~/go/src/github.com/stapelberg/expanderr/expanderr.el")
 (add-hook 'go-mode-hook (lambda ()
-                          (global-set-key (kbd "C-c C-e") #'go-expanderr)))
+                          (global-set-key (kbd "C-c C-e") #'go-expanderr)
+                          (global-set-key (kbd "s-o") 'go-guru-definition)
+                          (global-set-key (kbd "C-c C-r") 'go-rename)
+                          ))
 
 ;; (setq neo-autorefresh t) ; enable autorefresh of neotree
 
