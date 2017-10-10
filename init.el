@@ -85,6 +85,7 @@
      eros
      oceanic-theme
      flycheck-popup-tip
+     (evil-briefcase :location (recipe :fetcher github :repo "strickinato/evil-briefcase"))
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -735,6 +736,13 @@ IF TESTNAME is specified run jest with a pattern for just that test."
       (flycheck-popup-tip-mode 1)))
 
 (setq magit-diff-refine-hunk t)
+
+(evil-briefcase-mode 1)
+
+;; Emacs server
+(require 'server)
+(unless (server-running-p)
+  (server-start)q)
 
   ) ; END user-config
 
