@@ -594,6 +594,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c C-m") 'magit-status)
+(global-set-key (kbd "C-c C-g C-c") 'magit-checkout)
 (global-set-key (kbd "M-v") 'toggle-camelcase-underscores)
 (global-set-key (kbd "s-b") 'spacemacs/jump-to-definition)
 (global-set-key (kbd "s-o") 'spacemacs/jump-to-definition)
