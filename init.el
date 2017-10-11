@@ -528,7 +528,8 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'turn-on-flyspell)
-
+(add-hook 'prog-mode-hook 'flycheck-mode)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc emacs-lisp)))
 
 ;; not working, will get back to this
 ;; (use-package npm-mode
@@ -541,9 +542,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (setq css-indent-offset 2)
 
-(add-hook 'prog-mode-hook 'flycheck-mode)
 (with-eval-after-load 'flycheck
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc emacs-lisp)))
 
 (spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
 (spacemacs/set-leader-keys "eL" 'spacemacs/toggle-flycheck-error-list)
