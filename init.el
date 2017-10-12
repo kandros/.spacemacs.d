@@ -589,12 +589,16 @@ IF TESTNAME is specified run jest with a pattern for just that test."
     (define-key rjsx-mode-map (kbd "C-c C-p") 'jsx-prop-at-point)
   ))
 
-
 (with-eval-after-load 'go-mode
   (progn
     (load "~/go/src/github.com/stapelberg/expanderr/expanderr.el")
     (define-key go-mode-map (kbd "C-c C-e") #'go-expanderr)
     (define-key go-mode-map (kbd "s-o") 'go-guru-definition)
+    (define-key go-mode-map (kbd "s-O") (lambda()
+                                            (interactive)
+                                            (split-window-below-and-focus)
+                                            (go-guru-definition)
+                                            ))
     (define-key go-mode-map (kbd "C-c C-r") 'go-rename)
     ))
 
