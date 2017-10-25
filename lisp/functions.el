@@ -175,3 +175,9 @@
       (forward-word)
       (insert "}")
     )))
+
+(defun no-fix-js()
+  (interactive)
+  (prettier-js-mode 0)
+  (eslintd-fix-mode 0)
+  )
