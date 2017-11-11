@@ -363,7 +363,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (require 'functions)
   ;; (require 'react)
   ;; (require 'nextjs)
-  (require 'helm-bookmark)
   )
 
 (defun dotspacemacs/user-config ()
@@ -389,7 +388,7 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "C-j") #'evil-window-down)
   (define-key evil-motion-state-map (kbd "C-l") #'evil-window-right)
 
-  ;; (define-key neotree-mode-map (kbd "C-l") #'evil-window-right)
+;;  (define-key neotree-mode-map (kbd "C-l") #'evil-window-right)
 
   (evil-global-set-key 'normal (kbd "s-k") 'move-text-line-up)
   (evil-global-set-key 'normal (kbd "s-j") 'move-text-line-down)
@@ -557,8 +556,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
                               (make-frame)
                               (spacemacs/toggle-maximize-buffer)))
 (global-set-key (kbd "s-N") 'make-frame)
+(global-set-key (kbd "s-b") 'helm-mini)
 
-(global-set-key (kbd "C-c C-j") 'avy-goto-char-timer)
+;; (global-set-key (kbd "C-c C-j") 'avy-goto-char-timer)
 (global-set-key (kbd "C-c C-t") 'emmet-wrap-with-markup)
 (global-set-key (kbd "C-SPC") 'company-complete)
 ;; (global-set-key (kbd "}") 'dwim-curly)
@@ -567,6 +567,12 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "s-<right>") 'split-window-right-and-focus)
 (global-set-key (kbd "s-<down>") 'split-window-below-and-focus)
 (global-set-key (kbd "s-<left>") 'split-window-right)
+
+(global-set-key (kbd "C-s-<268632072>") 'split-window-right) ; C-s-h
+(global-set-key (kbd "C-s-<268632074>") 'split-window-below-and-focus) ; C-s-j
+(global-set-key (kbd "C-s-<268632075>") 'split-window-below) ; C-s-k
+(global-set-key (kbd "C-s-<268632076>") 'split-window-right-and-focus)  ;C-s-l
+
 
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c C-m") 'magit-status)
@@ -577,6 +583,29 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (global-set-key (kbd "<s-backspace>") 'kill-whole-line)
 (global-set-key (kbd "s-y") 'helm-show-kill-ring)
 (global-set-key (kbd "s-l") 'select-current-line)
+
+(with-eval-after-load 'typescript-mode
+  (progn
+    (setq emmet-expand-jsx-className? t)
+
+    (define-key js2-mode-map (kbd "C-c C-t") nil)
+    (define-key js2-mode-map (kbd "C-c C-o") nil)
+
+    (define-key rjsx-mode-map (kbd "C-c C-l") 'console-log-at-point)
+    (define-key rjsx-mode-map (kbd "C-c C-d") 'debugger-next-line)
+    (define-key rjsx-mode-map (kbd "s-o") 'tide-jump-to-definition)
+    (define-key rjsx-mode-map (kbd "s-O") (lambda()
+                                            (interactive)
+                                            (split-window-below-and-focus)
+                                            (tide-jump-to-definition)))
+    (define-key rjsx-mode-map (kbd "C-c C-r") 'tide-rename-symbol)
+    (define-key rjsx-mode-map (kbd "C-c C-t") 'rjsx-rename-tag-at-point)
+    (define-key rjsx-mode-map (kbd "C-c C-p") 'jsx-prop-at-point)
+
+    (advice-add 'tide-jump-to-definition :after 'recenter)
+    (setq-local helm-dash-docsets '("Lo-Dash"))
+    ))
+
 
 (with-eval-after-load 'rjsx-mode
   (progn
@@ -597,6 +626,7 @@ IF TESTNAME is specified run jest with a pattern for just that test."
     (define-key rjsx-mode-map (kbd "C-c C-p") 'jsx-prop-at-point)
 
     (advice-add 'tide-jump-to-definition :after 'recenter)
+    (setq-local helm-dash-docsets '("Lo-Dash"))
   ))
 
 
@@ -606,11 +636,17 @@ IF TESTNAME is specified run jest with a pattern for just that test."
     (define-key go-mode-map (kbd "C-c C-e") #'go-expanderr)
     (define-key go-mode-map (kbd "s-o") 'go-guru-definition)
     (define-key go-mode-map (kbd "s-O") (lambda()
-                                            (interactive)
-                                            (split-window-below-and-focus)
-                                            (go-guru-definition)
-                                            ))
+                                          (interactive)
+                                          (split-window-below-and-focus)
+                                          (go-guru-definition)
+                                          ))
+
     (define-key go-mode-map (kbd "C-c C-r") 'go-rename)
+    (define-key go-mode-map (kbd "C-c go")  (lambda()
+                                              (interactive)
+                                              (split-window-below-and-focus)
+                                              (find-file "/Users/jaga/go/src/github.com/kandros/go")
+                                              ))
 
     (advice-add 'go-guru-definition :after 'recenter)
     ))
@@ -734,7 +770,14 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 ;; Emacs server
 (require 'server)
 (unless (server-running-p)
-  (server-start)q)
+  (server-start))
+
+
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "it")
+
+(global-set-key [remap evil-yank] 'linum-relative-evil-yank)
+(global-set-key [remap evil-delete] 'linum-relative-evil-delete)
 
   ) ; END user-config
 
@@ -750,10 +793,13 @@ IF TESTNAME is specified run jest with a pattern for just that test."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (indium websocket powerline flycheck-popup-tip projectile smartparens iedit evil goto-chg elixir-mode flycheck company helm helm-core yasnippet markdown-mode org-plus-contrib magit magit-popup git-commit with-editor async hydra haml-mode js2-mode simple-httpd dash s doom-themes color-theme-solarized treemacs-evil treemacs rainbow-identifiers rainbow-mode eros tide typescript-mode define-word zonokai-theme zenburn-theme zen-and-art-theme xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rjsx-mode reverse-theme reveal-in-osx-finder restclient restart-emacs rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir npm-mode noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mocha mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md gandalf-theme fuzzy flycheck-pos-tip flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-multiedit evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eslintd-fix eshell-z eshell-prompt-extras esh-help erlang emojify emmet-mode elisp-slime-nav easy-hugo dumb-jump dracula-theme django-theme darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web company-tern company-statistics company-go company-flx column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme all-the-icons alect-themes alchemist aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-mode ace-jump-helm-line ac-ispell)))
+    (indium ht f avy helm-dash websocket powerline flycheck-popup-tip projectile smartparens iedit evil goto-chg elixir-mode flycheck company helm helm-core yasnippet markdown-mode org-plus-contrib magit magit-popup git-commit with-editor async hydra haml-mode js2-mode simple-httpd dash s doom-themes color-theme-solarized treemacs-evil treemacs rainbow-identifiers rainbow-mode eros tide typescript-mode define-word zonokai-theme zenburn-theme zen-and-art-theme xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rjsx-mode reverse-theme reveal-in-osx-finder restclient restart-emacs rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir npm-mode noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mocha mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md gandalf-theme fuzzy flycheck-pos-tip flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-multiedit evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eslintd-fix eshell-z eshell-prompt-extras esh-help erlang emojify emmet-mode elisp-slime-nav easy-hugo dumb-jump dracula-theme django-theme darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme csv-mode company-web company-tern company-statistics company-go company-flx column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme all-the-icons alect-themes alchemist aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-mode ace-jump-helm-line ac-ispell)))
+ '(paradox-github-token t)
  '(safe-local-variable-values
    (quote
     ((eval progn
+           (prettier-js-mode 0))
+     (eval progn
            (prettier-js-mode 0)
            (eslintd-fix-mode 0))
      (elixir-enable-compilation-checking . t)

@@ -181,3 +181,26 @@
   (prettier-js-mode 0)
   (eslintd-fix-mode 0)
   )
+
+(defun linum-relative-evil-yank ()
+  "Show relative numbering temporarily when yanking"
+  (interactive)
+  (linum-relative-on)
+  (unwind-protect
+      (progn
+        (linum-mode 1)
+        (call-interactively 'evil-yank))
+    (linum-mode -1))
+  )
+
+
+(defun linum-relative-evil-delete ()
+  "Show relative numbering temporarily when yanking"
+  (interactive)
+  (linum-relative-on)
+  (unwind-protect
+      (progn
+        (linum-mode 1)
+        (call-interactively 'evil-delete))
+    (linum-mode -1))
+  )
