@@ -53,7 +53,8 @@
      emacs-lisp
      ;; docker
      git
-     osx
+     (osx :variables
+          osx-command-as 'super)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips t)
      ;; aaronjenses's layers
@@ -360,11 +361,15 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq powerline-image-apple-rgb t)
 
   (add-to-list 'load-path (expand-file-name "lisp" dotspacemacs-directory))
+  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/themes/")
+
   ;; (require 'utils)
   (require 'functions)
   ;; (require 'react)
   ;; (require 'nextjs)
-  )
+
+) ; END user-init
+
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -543,8 +548,15 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 
 (setq css-indent-offset 2)
 
-(spacemacs/set-leader-keys "el" 'spacemacs/goto-flycheck-error-list)
-(spacemacs/set-leader-keys "eL" 'spacemacs/toggle-flycheck-error-list)
+;; (evil-define-minor-mode-key 'normal 'indium-debugger-mode
+;;   (kbd "SPC") nil)
+;; (evil-define-minor-mode-key 'normal 'indium-debugger-mode
+;;   (kbd "c'") nil)
+;; (evil-define-minor-mode-key 'normal 'indium-debugger-mode
+;;   (kbd "l'") nil)
+;; (evil-define-minor-mode-key 'normal 'indium-debugger-mode
+;;   (kbd "e'") nil)
+
 
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
@@ -722,6 +734,13 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 (add-hook 'rjsx-mode-hook #'setup-tide-mode)
 
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+(flycheck-add-mode 'typescript-tslint 'web-mode)
+
 (use-package evil-escape
   :commands evil-escape-mode
   :init
@@ -762,7 +781,14 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 ;;   '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
 ;; (company-quickhelp-delay nil)
 
-(company-quickhelp-mode 1)
+(defun dear-leader/swap-keys (key1 key2)
+     (let ((map1 (lookup-key spacemacs-default-map key1))
+                    (map2 (lookup-key spacemacs-default-map key2)))
+            (spacemacs/set-leader-keys key1 map2 key2 map1)))
+
+(dear-leader/swap-keys "el" "eL")
+
+(add-hook 'after-init-hook #'set-mellow-theme)
 
   ) ; END user-config
 
@@ -808,12 +834,29 @@ This function is called at the very end of Spacemacs initialization."
  '(ansi-color-names-vector
    ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
  '(company-flx-limit 100)
- '(company-idle-delay 0 t)
+ '(company-idle-delay 0)
  '(evil-want-Y-yank-to-eol nil)
  '(magit-commit-arguments (quote ("--verbose")))
  '(package-selected-packages
    (quote
-    (symon string-inflection password-generator impatient-mode htmlize helm-purpose window-purpose imenu-list godoctor go-rename evil-lion editorconfig visual-fill-column unfill mwim markdown-toc gh-md emojify ht yaml-mode mmm-mode npm-mode markdown-mode flyspell-popup nodejs-repl writeroom-mode flyspell-correct-helm flyspell-correct auto-dictionary gruvbox-theme autothemer minimap reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl easy-hugo toml-mode racer flycheck-rust seq cargo rust-mode mocha go-guru go-eldoc company-go go-mode all-the-icons memoize font-lock+ dockerfile-mode docker tablist docker-tramp company-flx company-tern dash-functional tern helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-flow auto-yasnippet ac-ispell auto-complete flycheck-pos-tip pos-tip flycheck-flow ob-elixir flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flycheck erlang alchemist company elixir-mode spinner adaptive-wrap web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-beautify rjsx-mode prettier-js livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc eslintd-fix coffee-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (rainbow-mode symon string-inflection password-generator impatient-mode htmlize helm-purpose window-purpose imenu-list godoctor go-rename evil-lion editorconfig visual-fill-column unfill mwim markdown-toc gh-md emojify ht yaml-mode mmm-mode npm-mode markdown-mode flyspell-popup nodejs-repl writeroom-mode flyspell-correct-helm flyspell-correct auto-dictionary gruvbox-theme autothemer minimap reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl easy-hugo toml-mode racer flycheck-rust seq cargo rust-mode mocha go-guru go-eldoc company-go go-mode all-the-icons memoize font-lock+ dockerfile-mode docker tablist docker-tramp company-flx company-tern dash-functional tern helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-flow auto-yasnippet ac-ispell auto-complete flycheck-pos-tip pos-tip flycheck-flow ob-elixir flycheck-mix flycheck-dogma flycheck-dialyxir flycheck-credo flycheck erlang alchemist company elixir-mode spinner adaptive-wrap web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-beautify rjsx-mode prettier-js livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc eslintd-fix coffee-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(paradox-github-token t)
+ '(safe-local-variable-values
+   (quote
+    ((eval progn
+           (prettier-js-mode 0)
+           (set-mellow-theme))
+     (eval progn
+           (prettier-js-mode 0)
+           (flycheck-disable-checker
+            (quote jsx-tide)))
+     (eval progn
+           (prettier-js-mode 0))
+     (eval progn
+           (prettier-js-mode 0)
+           (eslintd-fix-mode 0))
+     (elixir-enable-compilation-checking . t)
+     (elixir-enable-compilation-checking))))
  '(standard-indent 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
