@@ -557,6 +557,9 @@ IF TESTNAME is specified run jest with a pattern for just that test."
 ;; (evil-define-minor-mode-key 'normal 'indium-debugger-mode
 ;;   (kbd "e'") nil)
 
+(setq hyper-key "C-M-S-s")
+
+(global-set-key (kbd (concat hyper-key "-h")) 'help)
 
 (global-set-key (kbd "s-/") 'comment-line)
 (global-set-key (kbd "s-D") 'spacemacs/duplicate-line-or-region)
