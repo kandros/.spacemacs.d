@@ -744,6 +744,10 @@ IF TESTNAME is specified run jest with a pattern for just that test."
               (setup-tide-mode))))
 (flycheck-add-mode 'typescript-tslint 'web-mode)
 
+(evil-make-overriding-map indium-debugger-mode-map)
+(evil-make-overriding-map indium-debugger-locals-mode-map)
+
+
 (use-package evil-escape
   :commands evil-escape-mode
   :init
