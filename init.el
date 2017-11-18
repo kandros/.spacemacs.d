@@ -187,7 +187,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
 
    ; default was "Source Code Pro"
-   dotspacemacs-default-font '("Monaco"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 13
                                :weight normal
                                :width normal
